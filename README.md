@@ -12,7 +12,7 @@ backend, which sends a request to Zendesk to create the Lead and gets a secure f
 The application described in this post is composed of a frontend web interface based on React and a simple Node.js backend application. The backend relies on Express (Node.js) and leverages Stream's JavaScript library to generate a frontend token, and Axios to load data into Zendesk via the Zendesk Sell API
 
 The steps we will take to configure this application are:
-1. [Create an Access Token in Zendesk](#zc)
+1. [Create an Access Token in Zendesk](#zendeckconfig)
 2. [Configure Stream Chat](#markdown-header-configure-stream-chat)
 3. Configure the security token keys in the backend and start the back end
 4. Configure Axios snippets to use your Zendesk system and credentials
@@ -22,9 +22,9 @@ The steps we will take to configure this application are:
 
 To follow along the post, you will need a free [Stream](https://getstream.io/get_started/?signup=#flat_feed) account and a Zendesk Sell account. For this post, we used a Trial version of [Zendesk Sell](https://www.zendesk.com/register/?ref=218b).
 
-This post requires basic knowledge of [Node.js](https://nodejs.org/en/ "node website"), [Axios](https://github.com/axios/axios "Axois documentation on Github"), and the code is intended to run locally. A basic understanding of [Zendesk Sell API](https://developer.zendesk.com/rest_api/docs/sell-api/apis) is also needed to configure the secure communication between the app and Zendesk.
+This post requires basic knowledge of [Node.js](https://nodejs.org/en/ "node website"), [Axios](https://github.com/axios/axios "Axois documentation on Github"), and the code is intended to run locally. A basic understanding of [Zendesk Sell API](https://developer.zendesk.com/rest_api/docs/sell-api/apis) is also needed to configure the secure communication between the app and Zendesk, though specific steps needed here are provided.
 
-### <a name="zc"></a>Zendesk Configuration
+### Zendesk Configuration
 The purpose of this post is not to explain Zendesk configuration in detail. We will touch on only what is required to complete the functionality described in the post. The code snippets will allow you to complete the creation and update of Leads in your Zendesk system; however, you must configure the OAuth security settings from your Settings panel in your Zendesk system.
 
 1. First go to Settings
@@ -52,6 +52,37 @@ The purpose of this post is not to explain Zendesk configuration in detail. We w
 ### Configure the security token keys in the backend
 
 ### Configure Axios snippets to use your Zendesk system and credentials
+
+Locate the file [backend/routes/index.js](backend/routes/index.js).
+
+Change the code in lines #, # as follows.
+
+```javascript
+const axios = require('axios').default;
+var express = require('express');
+var router = express.Router();
+
+/* GET home page. */
+router.post('/registrations',  (req, res, next)=>{
+    // create a lead in salesforce
+    //async function asyncFunc() {
+        // post data to a url endpoint
+    const response = axios.post('htts://salesforce.com');
+    //  }
+    // create a stream user
+    // create a stream channel
+    // generate a frontend stream token for that user
+
+    res.send({
+        userId: 'bitter-unit-5',
+        token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYml0dGVyLXVuaXQtNSJ9.Y8LXEx6Fcfc7XTbQzBYNE7yv3EWs6vyMWTBtxt4rC-c',
+        channelId: 'godevs'
+    })
+});
+
+module.exports = router;
+
+```
 
 ### Setup the frontend form and chat bot.
 
@@ -147,3 +178,5 @@ function App() {
 export default App;
 
 ```
+
+And that does it! You now understand how to integrate Stream Chat with Zendesk Sell to create and modify Leads. Similar integrations can be configured with other Zendesk Objects like Contacts, Deals, Calendar, and Tasks.
