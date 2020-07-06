@@ -13,10 +13,10 @@ The application described in this post is composed of a frontend web interface b
 
 The steps we will take to configure this application are:
 1. [Create an Access Token in Zendesk](#zendeckconfig)
-2. [Configure Stream Chat](#markdown-header-configure-stream-chat)
-3. Configure the security token keys in the backend and start the back end
-4. Configure Axios snippets to use your Zendesk system and credentials
-4. Setup the frontend form and chat bot.
+2. [Configure Stream Chat](#configure-stream-chat)
+3. [Configure the security token keys in the backend and start the backend]()
+4. [Configure Axios snippets to use your Zendesk system and credentials]()
+4. [Setup the frontend form and chat bot]()
 
 ### Prerequisites
 

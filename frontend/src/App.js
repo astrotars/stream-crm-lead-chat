@@ -14,6 +14,10 @@ function App() {
     function register() {
         fetch("http://localhost:8080/registrations", {
             method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
             body: JSON.stringify({
                 firstName,
                 lastName,
