@@ -7,12 +7,16 @@ import './App.css';
 function App() {
     const [chatClient, setChatClient] = useState(null);
     const [channel, setChannel] = useState(null);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
 
     function register() {
-        fetch("http://localhost:3000/registrations", {
+        fetch("http://localhost:8080/registrations", {
             method: "POST",
             body: JSON.stringify({
+                firstName,
+                lastName,
                 email
             })
         })
@@ -57,7 +61,18 @@ function App() {
     } else {
         return (
             <div className="App">
-                <input type="text"
+                <label for="firstName">First Name</label>
+                <input type="text" name="firstName"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                />
+                <label for="lastName">Last Name</label>
+                <input type="text" name="lastName"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                />
+                <label for="email">Enter Email address</label>
+                <input type="text" name="email"
                        value={email}
                        onChange={(e) => setEmail(e.target.value)}
                 />

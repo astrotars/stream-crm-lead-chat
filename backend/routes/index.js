@@ -1,9 +1,14 @@
+const axios = require('axios').default;
 var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.post('/registrations', function (req, res, next) {
+router.post('/registrations',  (req, res, next)=>{
     // create a lead in salesforce
+    //async function asyncFunc() {
+        // post data to a url endpoint
+    const response = axios.post('htts://salesforce.com');
+    //  }
     // create a stream user
     // create a stream channel
     // generate a frontend stream token for that user
