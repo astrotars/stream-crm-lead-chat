@@ -12,11 +12,11 @@ backend, which sends a request to Zendesk to create the Lead and gets a secure f
 The application described in this post is composed of a frontend web interface based on React and a simple Node.js backend application. The backend relies on Express (Node.js) and leverages Stream's JavaScript library to generate a frontend token, and Axios to load data into Zendesk via the Zendesk Sell API
 
 The steps we will take to configure this application are:
-1. [Create an Access Token in Zendesk](#zendeckconfig)
+1. [Create an Access Token in Zendesk](#zendeck-configuration)
 2. [Configure Stream Chat](#configure-stream-chat)
-3. [Configure the security token keys in the backend and start the backend]()
-4. [Configure Axios snippets to use your Zendesk system and credentials]()
-4. [Setup the frontend form and chat bot]()
+3. [Configure the security token keys in the backend and start the backend](#configure-the-security-token-keys-in-the-backend-and-start-the-backend)
+4. [Configure Axios snippets to use your Zendesk system and credentials](#configure-axios-snippets-to-use-your-zendesk-system-and-credentials)
+4. [Setup the frontend form and chat bot](#setup-the-frontend-form-and-chat-bot)
 
 ### Prerequisites
 
