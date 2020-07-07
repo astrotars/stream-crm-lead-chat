@@ -24,7 +24,9 @@ To follow along the post, you will need a free [Stream](https://getstream.io/get
 
 This post requires basic knowledge of [Node.js](https://nodejs.org/en/ "node website"), [Axios](https://github.com/axios/axios "Axois documentation on Github"), and the code is intended to run locally. A basic understanding of [Zendesk Sell API](https://developer.zendesk.com/rest_api/docs/sell-api/apis) is also needed to configure the secure communication between the app and Zendesk, though specific steps needed here are provided.
 
-### Create an Access Token in Zendesk ([back to Overview](#overveiw))
+### Create an Access Token in Zendesk
+([back to Overview](#overveiw))
+
 The purpose of this post is not to explain Zendesk configuration in detail. We will touch on only what is required to complete the functionality described in the post. The code snippets will allow you to complete the creation and update of Leads in your Zendesk system; however, you must configure the OAuth security settings from your Settings panel in your Zendesk system.
 
 1. First go to Settings
@@ -47,11 +49,14 @@ The purpose of this post is not to explain Zendesk configuration in detail. We w
 
 ![](images/zendesk-access-token-example.png)
 
-### Configure Stream Chat ([back to Overview](#overveiw))
+### Configure Stream Chat
+([back to Overview](#overveiw))
 
-### Configure the security token keys in the backend and start the backend ([back to Overview](#overveiw))
+### Configure the security token keys in the backend and start the backend
+([back to Overview](#overveiw))
 
-### Configure Axios snippets to use your Zendesk system and credentials ([back to Overview](#overveiw))
+### Configure Axios snippets to use your Zendesk system and credentials
+([back to Overview](#overveiw))
 
 Locate the file [backend/routes/index.js](backend/routes/index.js).
 
@@ -84,7 +89,8 @@ module.exports = router;
 
 ```
 
-### Setup the frontend form and chat bot ([back to Overview](#overveiw))
+### Setup the frontend form and chat bot
+([back to Overview](#overveiw))
 
 For the purposes of this post, we will configure the capture of the minimum level of information in order to create a CRM Lead, your requirements may differ.
 
@@ -180,3 +186,4 @@ export default App;
 ```
 
 And that does it! You now understand how to integrate Stream Chat with Zendesk Sell to create and modify Leads. Similar integrations can be configured with other Zendesk Objects like Contacts, Deals, Calendar, and Tasks.
+([back to Overview](#overveiw))
