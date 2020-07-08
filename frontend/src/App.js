@@ -25,7 +25,7 @@ function App() {
             })
         })
             .then((res) => {
-                // console.log("res", res.json())
+                console.log("res", res.json())
                 return res.json()
             })
             .then(({ userId, token, channelId }) => {

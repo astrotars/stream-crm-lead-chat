@@ -1,3 +1,4 @@
+var streamChat = require('stream-chat');
 const axios = require('axios').default;
 var express = require('express');
 var router = express.Router();
@@ -55,14 +56,41 @@ router.post('/registrations', async (req, res, next)=>{
  
     //  }
     // create a stream user
+    
+      try {
+        const data = req.body;
+        const apiKey = 'egf5n586twvh';
+        const apiSecret = 'ahwrb765dgh9rjs33pvzxx7z5vwwaqzz6cj2q8m5tctab6yx2gdu3sc6wyh5g7zg';
+        const client = new streamChat.StreamChat(apiKey, apiSecret);
+        const user = Object.assign({}, data, {
+          id: `${req.body.firstName}`,
+          role: 'admin',
+          image: `https://robohash.org/${req.body.email}`
+        });
+        const token = client.createToken(user.id);
+        await client.updateUsers([user]);
+        res.status(200).json({
+          userId:user.id,
+          token,
+          channelId: 'godevs',
+          apiKey
+        });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({
+          error: error.message
+        });
+      }
+    
     // create a stream channel
     // generate a frontend stream token for that user
 
-    res.send({
-        userId: 'bitter-unit-5',
-        token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYml0dGVyLXVuaXQtNSJ9.Y8LXEx6Fcfc7XTbQzBYNE7yv3EWs6vyMWTBtxt4rC-c',
-        channelId: 'godevs'
-    })
+    // res.send({
+    //     userId: 'bitter-unit-5',
+    //     //token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYml0dGVyLXVuaXQtNSJ9.Y8LXEx6Fcfc7XTbQzBYNE7yv3EWs6vyMWTBtxt4rC-c',
+    //     token,
+    //     channelId: 'godevs'
+    // })
 });
 
 module.exports = router;
