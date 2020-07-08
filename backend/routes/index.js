@@ -1,4 +1,5 @@
 var streamChat = require('stream-chat');
+//var streamChannel = require('stream-chat-react');
 const axios = require('axios').default;
 var express = require('express');
 var router = express.Router();
@@ -68,11 +69,16 @@ router.post('/registrations', async (req, res, next)=>{
           image: `https://robohash.org/${req.body.email}`
         });
         const token = client.createToken(user.id);
+        const channel = client.channel('messaging', 'godevs', {
+          // add as many custom fields as you'd like
+          image: `https://robohash.org/${req.body.email}`,
+          name: 'CRM Inquiry',
+        });
         await client.updateUsers([user]);
         res.status(200).json({
           userId:user.id,
           token,
-          channelId: 'godevs',
+          channelId: channel.id,
           apiKey
         });
       } catch (error) {
