@@ -3,6 +3,7 @@ import { Chat, Channel, ChannelHeader, Thread, Window } from 'stream-chat-react'
 import { MessageList, MessageInput } from 'stream-chat-react';
 import { StreamChat } from 'stream-chat';
 import './App.css';
+import 'stream-chat-react/dist/css/index.css';
 
 function App() {
     const [chatClient, setChatClient] = useState(null);

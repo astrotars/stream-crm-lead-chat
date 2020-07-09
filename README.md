@@ -9,13 +9,12 @@ backend, which sends a request to Zendesk to create the Lead and gets a secure f
 * The frontend will then display the chat screen.
 
 ## Overview
-The application described in this post is composed of a React.js frontend and a Node.js with Express backend. The backend also leverages Stream's JavaScript library to generate a frontend token, and Axios to load data into Zendesk via the Zendesk Sell API
+The application described in this post is composed of a React.js frontend and a Node.js with Express backend. The backend also leverages Stream's JavaScript library to generate a frontend token, and Axios to load data into Zendesk via the Zendesk Sell API. All the code required for this tutorial is available in github.
 
 The steps we will take to configure this application are:
 1. [Create an Access Token in Zendesk](#create-an-access-token-in-zendesk)
 3. [Configure the security token keys in the backend and start the backend](#configure-the-security-token-keys-in-the-backend-and-start-the-backend)
-2. [Configure Stream Chat](#configure-stream-chat)
-4. [Configure Axios snippets to use your Zendesk system and credentials](#configure-axios-snippets-to-use-your-zendesk-system-and-credentials)
+2. [Create a Stream Chat Session](#create-a-stream-chat-session)
 4. [Setup the frontend form and chat bot](#setup-the-frontend-form-and-chat-bot)
 
 ### Prerequisites
@@ -49,14 +48,19 @@ The purpose of this post is not to explain Zendesk configuration in detail. We w
 
 ![](images/zendesk-access-token-example.png)
 
-You will update the backend with this Zendesk OAuth Token as explained below and in the [backend/README.md](backend/README.md) file.
+You will update the backend with this Zendesk OAuth Token as explained in the next section.
 
 ### Configure the security token keys in the backend and start the backend
 ([back to Overview](#overview))
 
 The Reach.js is already configured to present the user form and to interact with the backend. No code modifications are required. The frontend application code is composed in the [App.js](frontend/App.js).
 
-There are four references that you need to provide to the backend code to make the application function:
+There are three references that you need to provide in a .env file to make the application function:
+- STREAM_API_KEY
+- STREAM_API_SECRET
+- ZENDESK_CRM_TOKEN
+
+You can create an .env file from the .env.example and provide the credentials and/or tokens that are required.
 
 1. Your Stream Key and Secret.
 If haven't set up your Stream credentials, you will need to create them.
@@ -67,7 +71,7 @@ If haven't set up your Stream credentials, you will need to create them.
 
 ![](images/stream-create-app-button.png)
 
-Give your app a name and select "Develepment" and click `Submit`
+Give your app a name and select "Development" and click `Submit`
 
 ![](images/stream-create-new-app-button.png)
 
@@ -75,45 +79,17 @@ Give your app a name and select "Develepment" and click `Submit`
 
 ![](images/stream-key-secret-copy.png)
 
-### Configure Stream Chat
+When the .env file has been created, you can start the backend by `npm start` command from the backend folder.
+
+### Create a Stream Chat Session
 ([back to Overview](#overview))
 
-### Configure Axios snippets to use your Zendesk system and credentials
-([back to Overview](#overview))
-
-Locate the file [backend/routes/index.js](backend/routes/index.js).
-
-Change the code in lines #, # as follows.
-
-```javascript
-const axios = require('axios').default;
-var express = require('express');
-var router = express.Router();
-
-/* GET home page. */
-router.post('/registrations',  (req, res, next)=>{
-    // create a lead in salesforce
-    //async function asyncFunc() {
-        // post data to a url endpoint
-    const response = axios.post('htts://salesforce.com');
-    //  }
-    // create a stream user
-    // create a stream channel
-    // generate a frontend stream token for that user
-
-    res.send({
-        userId: 'bitter-unit-5',
-        token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYml0dGVyLXVuaXQtNSJ9.Y8LXEx6Fcfc7XTbQzBYNE7yv3EWs6vyMWTBtxt4rC-c',
-        channelId: 'godevs'
-    })
-});
-
-module.exports = router;
-
-```
+The code that creates a Lean in Zendesk and creates a Stream Chat session can be found at [backend/routes/index.js](backend/routes/index.js)
 
 ### Setup the frontend form and chat bot
 ([back to Overview](#overview))
+
+The code that first presents the CRM inquiry form and then instantiates a Stream Chat can be found at [frontend/src/App.js](frontend/src/App.js)
 
 For the purposes of this post, we will configure the capture of the minimum level of information in order to create a CRM Lead, your requirements may differ.
 
