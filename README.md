@@ -1,5 +1,5 @@
 # Generate Zendesk Leads from custom Chat application
-This post will demonstrate how to configure a Lead creation in Zendesk from a customer inquiry via a Chat bot interaction.
+This post will demonstrate how to configure a Lead creation in Zendesk from a customer inquiry via a Chat bot interaction. A later post will explain how to append the chat transcript to the Lead.
 
 #### Process Flow of the Application
 * The user initiates an inquiry chat,
@@ -7,14 +7,14 @@ This post will demonstrate how to configure a Lead creation in Zendesk from a cu
 * The form information is passed to the 
 backend, which sends a request to Zendesk to create the Lead and gets a secure frontend token from Stream
 * The frontend will then display the chat screen.
-* At the conclusion of the chat (or at some other configured event), the frontend will hand-off to the backend to send a request to zendesk to update the Lead notes with the chat transcript.
+
 ## Overview
-The application described in this post is composed of a frontend web interface based on React and a simple Node.js backend application. The backend relies on Express (Node.js) and leverages Stream's JavaScript library to generate a frontend token, and Axios to load data into Zendesk via the Zendesk Sell API
+The application described in this post is composed of a React.js frontend and a Node.js with Express backend. The backend also leverages Stream's JavaScript library to generate a frontend token, and Axios to load data into Zendesk via the Zendesk Sell API
 
 The steps we will take to configure this application are:
 1. [Create an Access Token in Zendesk](#create-an-access-token-in-zendesk)
-2. [Configure Stream Chat](#configure-stream-chat)
 3. [Configure the security token keys in the backend and start the backend](#configure-the-security-token-keys-in-the-backend-and-start-the-backend)
+2. [Configure Stream Chat](#configure-stream-chat)
 4. [Configure Axios snippets to use your Zendesk system and credentials](#configure-axios-snippets-to-use-your-zendesk-system-and-credentials)
 4. [Setup the frontend form and chat bot](#setup-the-frontend-form-and-chat-bot)
 
@@ -27,7 +27,7 @@ This post requires basic knowledge of [Node.js](https://nodejs.org/en/ "node web
 ### Create an Access Token in Zendesk
 ([back to Overview](#overview))
 
-The purpose of this post is not to explain Zendesk configuration in detail. We will touch on only what is required to complete the functionality described in the post. The code snippets will allow you to complete the creation and update of Leads in your Zendesk system; however, you must configure the OAuth security settings from your Settings panel in your Zendesk system.
+The purpose of this post is not to explain Zendesk configuration in detail. We will touch on only what is required to complete the functionality described in the post. The code snippets will allow you to complete the creation and update of Leads in your Zendesk system, for this you must configure the OAuth security settings from your Settings panel in your Zendesk system by the following steps: 
 
 1. First go to Settings
 
@@ -49,10 +49,33 @@ The purpose of this post is not to explain Zendesk configuration in detail. We w
 
 ![](images/zendesk-access-token-example.png)
 
-### Configure Stream Chat
-([back to Overview](#overview))
+You will update the backend with this Zendesk OAuth Token as explained below and in the [backend/README.md](backend/README.md) file.
 
 ### Configure the security token keys in the backend and start the backend
+([back to Overview](#overview))
+
+The Reach.js is already configured to present the user form and to interact with the backend. No code modifications are required. The frontend application code is composed in the [App.js](frontend/App.js).
+
+There are four references that you need to provide to the backend code to make the application function:
+
+1. Your Stream Key and Secret.
+If haven't set up your Stream credentials, you will need to create them.
+- Navigate to your [Stream.io Dashboard](https://getstream.io/dashboard/), and then click on the Create App button and complete the form like in the following screenshot.
+
+![](images/stream-dashboard-button.png)
+
+
+![](images/stream-create-app-button.png)
+
+Give your app a name and select "Develepment" and click `Submit`
+
+![](images/stream-create-new-app-button.png)
+
+- Once you have created a Stream app, Stream will generate a Key and Secret for your app. You need to copy these copy the Key and Secret and update the backend file, "FILENAME/LOCATION"
+
+![](images/stream-key-secret-copy.png)
+
+### Configure Stream Chat
 ([back to Overview](#overview))
 
 ### Configure Axios snippets to use your Zendesk system and credentials
