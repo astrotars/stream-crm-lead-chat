@@ -29,7 +29,7 @@ router.post('/registrations', async (req, res, next) => {
             process.env.STREAM_API_SECRET
         );
         const user = {
-            id: req.body.email,
+            id: `${req.body.firstName}-${req.body.lastName}`.toLowerCase(),
             role: 'user',
             image: `https://robohash.org/${req.body.email}`
         };

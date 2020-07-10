@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Chat, Channel, ChannelHeader, Thread, Window } from 'stream-chat-react';
-import { MessageList, MessageInput } from 'stream-chat-react';
+import { Channel, ChannelHeader, Chat, MessageInput, MessageList, Thread, Window } from 'stream-chat-react';
 import { StreamChat } from 'stream-chat';
 import './App.css';
 import 'stream-chat-react/dist/css/index.css';
@@ -12,23 +11,23 @@ function App() {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
 
-    function register() {
+    async function register() {
         const response = await fetch("http://localhost:8080/registrations", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-              },
+            },
             body: JSON.stringify({
                 firstName,
                 lastName,
                 email
             })
         })
-        const { userId, token, channelId, apiKey } = await res.json();
-        const chatClient = new StreamChat(apiKey);
+        const { userId, token, channelId, apiKey } = await response.json();
 
-        chatClient.setUser(
+        const chatClient = new StreamChat(apiKey);
+        await chatClient.setUser(
             {
                 id: userId,
                 name: email,
@@ -49,11 +48,11 @@ function App() {
                 <Chat client={chatClient} theme={'messaging light'}>
                     <Channel channel={channel}>
                         <Window>
-                            <ChannelHeader />
-                            <MessageList />
-                            <MessageInput />
+                            <ChannelHeader/>
+                            <MessageList/>
+                            <MessageInput/>
                         </Window>
-                        <Thread />
+                        <Thread/>
                     </Channel>
                 </Chat>
             </div>
@@ -63,13 +62,13 @@ function App() {
             <div className="App">
                 <label for="firstName">First Name</label>
                 <input type="text" name="firstName"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
+                       value={firstName}
+                       onChange={(e) => setFirstName(e.target.value)}
                 />
                 <label for="lastName">Last Name</label>
                 <input type="text" name="lastName"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
+                       value={lastName}
+                       onChange={(e) => setLastName(e.target.value)}
                 />
                 <label for="email">Enter Email address</label>
                 <input type="text" name="email"
