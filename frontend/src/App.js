@@ -59,22 +59,28 @@ function App() {
         )
     } else {
         return (
-            <div className="App">
-                <label for="firstName">First Name</label>
-                <input type="text" name="firstName"
-                       value={firstName}
-                       onChange={(e) => setFirstName(e.target.value)}
-                />
-                <label for="lastName">Last Name</label>
-                <input type="text" name="lastName"
-                       value={lastName}
-                       onChange={(e) => setLastName(e.target.value)}
-                />
-                <label for="email">Enter Email address</label>
-                <input type="text" name="email"
-                       value={email}
-                       onChange={(e) => setEmail(e.target.value)}
-                />
+            <div className="app">
+                <div className="app-input">
+                    <label htmlFor="firstName">First Name</label>
+                    <input type="text" name="firstName"
+                           value={firstName}
+                           onChange={(e) => setFirstName(e.target.value)}
+                    />
+                </div>
+                <div className="app-input">
+                    <label htmlFor="lastName">Last Name</label>
+                    <input type="text" name="lastName"
+                           value={lastName}
+                           onChange={(e) => setLastName(e.target.value)}
+                    />
+                </div>
+                <div className="app-input">
+                    <label htmlFor="email">Enter Email address</label>
+                    <input type="text" name="email"
+                           value={email}
+                           onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
                 <button onClick={() => register()}>Start chat</button>
             </div>
         );
