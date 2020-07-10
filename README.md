@@ -19,14 +19,14 @@ The steps we will take to configure this application are:
 
 ### Prerequisites
 
-To follow along the post, you will need a free [Stream](https://getstream.io/get_started/?signup=#flat_feed) account and a Zendesk Sell account. For this post, we used a Trial version of [Zendesk Sell](https://www.zendesk.com/register/?ref=218b).
+To follow along with the post, you will need a free [Stream](https://getstream.io/get_started/?signup=#flat_feed) account and a Zendesk Sell account. For this post, we used a Trial version of [Zendesk Sell](https://www.zendesk.com/register/?source=zendesk_sell#step-1).
 
 This post requires basic knowledge of [Node.js](https://nodejs.org/en/ "node website"), [Axios](https://github.com/axios/axios "Axois documentation on Github"), and the code is intended to run locally. A basic understanding of [Zendesk Sell API](https://developer.zendesk.com/rest_api/docs/sell-api/apis) is also needed to configure the secure communication between the app and Zendesk (though the specific steps needed are provided in the post).
 
 ### Create an Access Token in Zendesk
 ([back to Overview](#overview))
 
-The purpose of this post is not to explain Zendesk configuration in detail. We will touch on only what is required to complete the functionality described in the post. The code snippets will allow you to complete the creation and update of Leads in your Zendesk system, for this you must configure the OAuth security settings from your Settings panel in your Zendesk system by the following steps: 
+While Stream is capable of integrating into all of Zendesk's API, the purpose of this post is not to explain Zendesk configuration in detail. The code snippets shown will allow you to create and update Leads in your Zendesk system. The first step for any Zendesk Sell integration is to configure the OAuth security settings from your Zendesk Sell Settings panel with the following steps: 
 
 1. First go to Settings
 
@@ -53,7 +53,7 @@ You will update the backend with this Zendesk OAuth Token as explained in the ne
 ### Configure the security token keys in the backend and start the backend
 ([back to Overview](#overview))
 
-The Reach.js is already configured to present the user form and to interact with the backend. No code modifications are required. The frontend application code is composed in the [App.js](frontend/App.js).
+The React.js is already configured to present the user form and to interact with the backend. No code modifications are required. The frontend application code is composed in the [App.js](frontend/App.js).
 
 There are three references that you need to provide in a .env file to make the application function:
 - STREAM_API_KEY
@@ -84,14 +84,14 @@ When the .env file has been created, you can start the backend by `npm start` co
 ### Create a Stream Chat Session
 ([back to Overview](#overview))
 
-The code that creates a Lean in Zendesk and creates a Stream Chat session can be found at [backend/routes/index.js](backend/routes/index.js)
+The code that creates a Lead in Zendesk and creates a Stream Chat session can be found at [backend/routes/index.js](backend/routes/index.js)
 
 ### Setup the frontend form and chat bot
 ([back to Overview](#overview))
 
 The code that first presents the CRM inquiry form and then instantiates a Stream Chat can be found at [frontend/src/App.js](frontend/src/App.js)
 
-For the purposes of this post, we will configure the capture of the minimum level of information in order to create a CRM Lead, your requirements may differ.
+For the purposes of this post, we will send the minimum level of information in order to create a CRM Lead, your requirements may differ, and can easily be added using the Zendesk API documentation.
 
 We will configure the frontend to first display the initial form and then to request that the backend create a Zendesk Lead and get a Stream token. The frontend will then display a chat screen. Lastly, the frontend will request that the backend save the chat transcript to the Lead that was created at the outset.
 

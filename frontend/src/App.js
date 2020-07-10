@@ -25,7 +25,7 @@ function App() {
             })
         })
         const { userId, token, channelId, apiKey } = await response.json();
-
+        console.log('userid: ', userId, "token", token, 'channelid', channelId, 'apiKey', apiKey)
         const chatClient = new StreamChat(apiKey);
         await chatClient.setUser(
             {
@@ -48,11 +48,11 @@ function App() {
                 <Chat client={chatClient} theme={'messaging light'}>
                     <Channel channel={channel}>
                         <Window>
-                            <ChannelHeader/>
-                            <MessageList/>
-                            <MessageInput/>
+                            <ChannelHeader />
+                            <MessageList />
+                            <MessageInput />
                         </Window>
-                        <Thread/>
+                        <Thread />
                     </Channel>
                 </Chat>
             </div>
@@ -63,22 +63,22 @@ function App() {
                 <div className="app-input">
                     <label htmlFor="firstName">First Name</label>
                     <input type="text" name="firstName"
-                           value={firstName}
-                           onChange={(e) => setFirstName(e.target.value)}
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
                     />
                 </div>
                 <div className="app-input">
                     <label htmlFor="lastName">Last Name</label>
                     <input type="text" name="lastName"
-                           value={lastName}
-                           onChange={(e) => setLastName(e.target.value)}
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
                     />
                 </div>
                 <div className="app-input">
                     <label htmlFor="email">Email</label>
                     <input type="text" name="email"
-                           value={email}
-                           onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
                 <button onClick={() => register()}>Start chat</button>
