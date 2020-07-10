@@ -13,7 +13,7 @@ function App() {
     const [email, setEmail] = useState('');
 
     function register() {
-        fetch("http://localhost:8080/registrations", {
+        const response = await fetch("http://localhost:8080/registrations", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -25,27 +25,22 @@ function App() {
                 email
             })
         })
-            .then((res) => {
-                // console.log("res", res.json())
-                return res.json()
-            })
-            .then(({ userId, token, channelId }) => {
-                const chatClient = new StreamChat('gx5a64bj4ptz');
+        const { userId, token, channelId, apiKey } = await res.json();
+        const chatClient = new StreamChat(apiKey);
 
-                chatClient.setUser(
-                    {
-                        id: userId,
-                        name: email,
-                        image: 'https://getstream.io/random_svg/?id=bitter-unit-5&name=Bitter+unit'
-                    },
-                    token,
-                );
+        chatClient.setUser(
+            {
+                id: userId,
+                name: email,
+                image: `https://getstream.io/random_svg/?id=${userId}`
+            },
+            token,
+        );
 
 
-                const channel = chatClient.channel('messaging', channelId);
-                setChatClient(chatClient);
-                setChannel(channel)
-            })
+        const channel = chatClient.channel('messaging', channelId);
+        setChatClient(chatClient);
+        setChannel(channel)
     }
 
     if (chatClient && channel) {
