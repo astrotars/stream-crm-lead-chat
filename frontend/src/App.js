@@ -75,7 +75,7 @@ function App() {
                     />
                 </div>
                 <div className="app-input">
-                    <label htmlFor="email">Enter Email address</label>
+                    <label htmlFor="email">Email</label>
                     <input type="text" name="email"
                            value={email}
                            onChange={(e) => setEmail(e.target.value)}

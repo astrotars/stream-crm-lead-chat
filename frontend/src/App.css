@@ -45,6 +45,7 @@ code {
 
 .app button {
     position: relative;
+    margin-top: 12px;
     margin-bottom: 12px;
     vertical-align: top;
     width: 100%;
