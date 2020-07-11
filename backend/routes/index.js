@@ -8,7 +8,7 @@ router.post('/registrations', async (req, res, next) => {
         await axios.post(
             'https://api.getbase.com/v2/leads',
             {
-                'data': {
+                data: {
                     'first_name': `${req.body.firstName}`,
                     'last_name': `${req.body.lastName}`,
                     'description': 'Lead created through Chat Inquiry',
@@ -23,7 +23,6 @@ router.post('/registrations', async (req, res, next) => {
                 }
             }
         );
-
         const client = new streamChat.StreamChat(
             process.env.STREAM_API_KEY,
             process.env.STREAM_API_SECRET
@@ -45,7 +44,7 @@ router.post('/registrations', async (req, res, next) => {
             apiKey: process.env.STREAM_API_KEY
         });
     } catch (error) {
-        console.log(error);
+        console.log(error, data.errors);
         res.status(500).json({
             error: error.message
         });
