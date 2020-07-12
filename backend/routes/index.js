@@ -33,10 +33,10 @@ router.post('/registrations', async (req, res, next) => {
             image: `https://robohash.org/${req.body.email}`
         };
         await client.upsertUsers([user, { id: 'sales-admin', role: 'admin' }]);
-        const token = client.createToken(user.id);
         const channel = client.channel('messaging', user.id, {
             members: [user.id, 'sales-admin'],
         });
+        const token = client.createToken(user.id);
         res.status(200).json({
             userId: user.id,
             token,

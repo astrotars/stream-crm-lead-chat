@@ -5,11 +5,12 @@ import './App.css';
 import 'stream-chat-react/dist/css/index.css';
 
 function App() {
-    const [chatClient, setChatClient] = useState(null);
-    const [channel, setChannel] = useState(null);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
+
+    const [chatClient, setChatClient] = useState(null);
+    const [channel, setChannel] = useState(null);
 
     async function register() {
         const response = await fetch("http://localhost:8080/registrations", {
@@ -25,7 +26,6 @@ function App() {
             })
         })
         const { userId, token, channelId, apiKey } = await response.json();
-        console.log('userid: ', userId, "token", token, 'channelid', channelId, 'apiKey', apiKey)
         const chatClient = new StreamChat(apiKey);
         await chatClient.setUser(
             {
@@ -81,7 +81,7 @@ function App() {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                <button onClick={() => register()}>Start chat</button>
+                <button onClick={() => register()}>Start Chat</button>
             </div>
         );
     }
