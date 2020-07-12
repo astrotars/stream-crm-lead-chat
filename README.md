@@ -284,6 +284,6 @@ if (chatClient && channel) {
 
 Since Stream Chat's [React library](https://getstream.io/react-activity-feed/) provides us out of the box components, we simply configure their `Chat` and `Channel` components and embed the parts of the chat we want to see. This renders a great out of the box chat experience. Ready to add the polish? Check out [Stream's free, gorgeous UI Kit](https://getstream.io/chat/ui-kit/).
 
-![](images/chat.png)
+![](images/chat2.png)
 
 And that does it! You now understand how to integrate Stream Chat with Zendesk Sell to create Leads during your sales chat experience. Similar integrations can be configured with other Zendesk Objects like Contacts, Deals, Calendar, and Tasks.
