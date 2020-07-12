@@ -87,6 +87,7 @@ First, we'll create the sales lead generation form the user sees when first land
 
 This snippet shows how the form is created (the chat app code is ignored for now, as indicated with `// ...`). 
  
+<!-- https://gist.github.com/psylinse/d9a2388c31e224e3f003061dd9de373d -->
 ```jsx
 // frontend/src/App.js:7
 function App() {
@@ -150,8 +151,9 @@ In the next code snippet, we use express to create a single endpoint, `/registra
 3. Generate a Stream chat [channel](https://getstream.io/chat/docs/initialize_channel/?language=js)
 4. Generate a Stream [frontend token](https://getstream.io/blog/integrating-with-stream-backend-frontend-options/). 
 
+<!-- https://gist.github.com/psylinse/8d4b354d0d9e8efe361b7f98bcc723a1 -->
 ```javascript
-// backend/routes/index.js
+// backend/routes/index.js:6
 router.post('/registrations', async (req, res, next) => {
     try {
         await axios.post(
@@ -217,6 +219,7 @@ Next, we create the Chat Instance with the `channel` method, passing a chat type
 
 Now that we have our `/registrations` endpoint, let's go back to our frontend and look at our `register` function. 
  
+<!-- https://gist.github.com/psylinse/eba16cba7fb6dfd1fb9154558615068c -->
 ```jsx
 // frontend/src/App.js:15
 async function register() {
@@ -256,6 +259,7 @@ Our `register` function first performs an HTTP Post to our backend with the fiel
 
 Now that we have our chat client and channel, we can enter the chat room. Let's look at the other half of our render's `if` statement.
 
+<!-- https://gist.github.com/psylinse/e4bd8263eeb838fca616ecb8f0d3ed2d -->
 ```jsx
 // frontend/src/App.js:45
 if (chatClient && channel) {
