@@ -1,5 +1,5 @@
 # Generate Zendesk Leads from Landing Page Chat using React Hooks
-This post will demonstrate how to configure a Lead creation in Zendesk from a customer inquiry via a landing page/sales chat widget. We'll build a full screen experience that can be embedded on your homepage or landing pages. Our chat experience will start with a simple user registration to capture first name, last name, and email before moving them into a one-on-one private chat with a sales representative. Please note, the sales representative experience is out of scope for this post.
+This post will demonstrate how to configure a Lead creation in Zendesk from a customer inquiry via a landing page/sales chat widget. We'll build a full-screen experience that can be embedded on your homepage or landing pages. Our chat experience will start with a simple user registration to capture first name, last name, and email before moving them into a one-on-one private chat with a sales representative. Please note, the sales representative experience is out of scope for this post.
 
 ## Application Process Flow
 * The user initiates an inquiry chat
@@ -10,20 +10,19 @@ This post will demonstrate how to configure a Lead creation in Zendesk from a cu
 ## Overview
 The application described in this post is composed of a React `frontend` and an Express `backend`. The backend also leverages Stream's [JavaScript library](https://github.com/GetStream/stream-js) to generate a frontend token, and Axios to send data to Zendesk via the Zendesk Sell API. All the code required for this tutorial is available in [github](https://github.com/psylinse/stream-crm-lead-chat/).
 
-The steps we will take to configure the `backend` are:
+First, we need to register and configure our accounts:
 1. [Registering and Configuring Zendesk](#registering-and-configuring-zendesk)
-3. [Registering and Configuring Stream](#registering-and-configuring-stream)
-2. [Create a Stream Chat Session](#create-a-stream-chat-session)
+1. [Registering and Configuring Stream](#registering-and-configuring-stream)
 
-The steps of the `frontend` are:
+Once we have our accounts we'll walk through the code step by step:
 1. [Step 1: User Enters Details](#step-1-user-enters-details)
-2. [Step 2: Backend Creates CRM Lead and Authenticates User to Chat](#step-2-backend-creates-crm-lead-and-authenticates-user-to-chat)
-3. [Step 3: Frontend Registers and Configures Chat](#step-3-frontend-registers-and-configures-chat)
-4. [Step 4: User Enters Chat Room](#step-4-user-enters-chat-room)
+1. [Step 2: Backend Creates CRM Lead and Authenticates User to Chat](#step-2-backend-creates-crm-lead-and-authenticates-user-to-chat)
+1. [Step 3: Frontend Registers and Configures Chat](#step-3-frontend-registers-and-configures-chat)
+1. [Step 4: User Enters Chat Room](#step-4-user-enters-chat-room)
 
 ## Prerequisites
 
-To follow along with the post, you will need a free [Stream](https://getstream.io/get_started/?signup=#flat_feed) account, and a Zendesk Sell account. For this post, we used a Trial version of [Zendesk Sell](https://www.zendesk.com/register/?source=zendesk_sell#step-1).
+To follow along with the post, you will need a free [Stream](https://getstream.io/get_started/?signup=#flat_feed) account and a Zendesk Sell account. For this post, we used a Trial version of [Zendesk Sell](https://www.zendesk.com/register/?source=zendesk_sell#step-1).
 
 This post requires basic knowledge of [React Hooks](https://reactjs.org/docs/hooks-intro.html), [Express](https://expressjs.com/), [Node.js](https://nodejs.org/en/ "node website"), and [Axios](https://github.com/axios/axios "Axios documentation on Github"). The code is intended to run locally. A basic understanding of [Zendesk Sell API](https://developer.zendesk.com/rest_api/docs/sell-api/apis) is also needed to configure the secure communication between the app and Zendesk (the specific steps needed are provided in the post).
 
@@ -32,9 +31,9 @@ There are three references that you need to provide in a .env file to make this 
 * STREAM_API_SECRET
 * ZENDESK_CRM_TOKEN
 
-A template file named '.env.example' is provided. Just update the values shown with your unique keys, secrets, and tokens, then remove the '.example' from the file name. We'll go over how to acquire these values next.
+ We're using [dotenv](https://github.com/motdotla/dotenv) to configure our environment. A template file named `.env.example` is provided. Just update the values shown with your unique keys, secrets, and tokens, then remove the `.example` from the file name. We'll go over how to acquire these values next.
 
-To integrate with Zendesk Sell we need to first configure the OAuth security settings from your Zendesk Sell Settings Panel using the following steps:  (Please note: if your dashboard looks different than the images shown below, you might be in the Zendesk Dashboard, not the  Zendesk Sell Dashboard.)
+To integrate with Zendesk Sell we need to first configure the OAuth security settings from your Zendesk Sell Settings Panel using the following steps. Please note: if your dashboard looks different from the images shown below, you might be in the Zendesk Dashboard, not the Zendesk Sell Dashboard. They are separate products so make sure you're in the right place!
 
 ### Registering and Configuring Zendesk
 
@@ -70,19 +69,19 @@ Once you're there, click on "Create App", and complete the form like in the foll
 
 ![](images/stream-create-app-button.png)
 
-Give your app a name, select "Development" and click `Submit`. 
+Give your app a name, select "Development" and click "Submit". 
  
 ![](images/stream-create-new-app-button.png)
 
-Stream will generate a Key and Secret for your app. You need to copy these into your .env file. 
+Stream will generate a Key and Secret for your app. You need to copy these into your `.env` file. 
  
 ![](images/stream-key-secret-copy.png)
 
-When the .env file has been created, you can start the backend by `npm start` command from the backend folder.
+When the `.env` file has been created, you can start the backend by `npm start` command from the backend folder.
 
 ## Step 1: User Enters Details
 
-First, we'll create the sales lead generation form the user sees when first landing on your site. This is a simple react form that shows if they haven't started a chat yet. Here's what our form looks like.
+First, we'll create the sales lead generation form the user sees when first landing on your site. This is a simple React form that shows if they haven't started a chat yet. Here's what our form looks like.
 
 ![](images/start-chat.png)
 
@@ -141,11 +140,11 @@ Here we have a simple React form that binds three values, first name, last name,
 
 ## Step 2: Backend Creates CRM Lead and Authenticates User to Chat
 
-Before we look at our frontend `register` function, lets build the backend that supports it. 
+Before we look at our frontend `register` function, let's build the backend that supports it. 
 
-** Note: For the purposes of this post, we will send the minimum level of information in order to create a CRM Lead, your requirements may differ, and can easily be added using the Zendesk API documentation. **
+** Note: For this post, we will send the minimum level of information to create a CRM Lead, your requirements may differ, and can easily be added using the Zendesk API documentation. **
 
-In the next code snipt, we use express to create a single endpoint, `/registrations`, that performs the following steps: 
+In the next code snippet, we use express to create a single endpoint, `/registrations`, that performs the following steps: 
 1. Generate our Lead in Zendesk Sell CRM
 2. Register the user in Stream
 3. Generate a Stream chat [channel](https://getstream.io/chat/docs/initialize_channel/?language=js)
@@ -202,15 +201,15 @@ router.post('/registrations', async (req, res, next) => {
 });
 ```
 
-First, we use `axios` to do an HTTP Post to the Zendesk Sell API (`api.getbase.com`). We pass along the first name, last name and email. We're using [dotenv](https://github.com/motdotla/dotenv) to configure our OAuth token in order to authenticate with Zendesk's API (as discussed in the configuration sections above).  That's all we need to do to get our lead created.
+First, we use `axios` to do an HTTP Post to the Zendesk Sell API (`api.getbase.com`). We pass along the first name, last name, and email. We grab our Zendesk OAuth token from the environment. That's all we need to do to get our lead created.
 
 Once our App is registered as a StreamChat Client, we'll create a specific Chat Channel which our Customer and Support Agent will connect to. Stream allows for public chats, but to make our Channel private, we'll specify 'members' of that channel using unique id's, and register them with our Client Instance. 
 
-To generate the customer's id, we'll modify the Customer's frontend input (Stream id's must be lowercase with no whitespace), and create a 'user' object to identify them. You can specify unique roles with different capabilities; our Customer will be granted a generic 'user' role, with limited abilities. We'll throw on the optional 'image' key to give the Customer a random avatar.
+To generate the customer's id, we'll modify the Customer's frontend input (Stream ids must be lowercase with no whitespace), and create a 'user' object to identify them. You can specify unique roles with different capabilities; our Customer will be granted a generic 'user' role, with limited abilities. We'll throw on the optional 'image' key to give the Customer a random avatar.
 
-Normally, you could create another object for the Support Agent on the other end of the chat, but for this case we will lazily register a Support Agent inline.
+Normally, you could create another object for the Support Agent on the other end of the chat, but for this case, we will lazily register a Support Agent inline.
 
-The `upsertUsers` method registers (or updates) users. Our Customer ('user') and our Support Agent ('sales-admin') are registered so they are able to join the chat channel.
+The `upsertUsers` method registers (or updates) users. Our Customer ('user') and our Support Agent ('sales-admin') are registered so they can join the chat channel.
 
 Next, we create the Chat Instance with the `channel` method, passing a chat type (`messaging` [type](https://getstream.io/chat/docs/channel_features/?language=js)'), a channel id (in this case `user.id`), and the members allowed to join. Then we use `StreamChat` client's 'createToken()' method to create a token for our Customer. All that's left is to respond to our frontend with the required information to join.
 
