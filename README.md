@@ -1,4 +1,5 @@
-# Generate Zendesk Leads from Landing Page Chat using React Hooks
+# Generate Zendesk Leads From Landing Page Chat Using React Hooks
+
 This post will demonstrate how to configure a Lead creation in Zendesk from a customer inquiry via a landing page/sales chat widget. We'll build a full-screen experience that can be embedded on your homepage or landing pages. Our chat experience will start with a simple user registration to capture first name, last name, and email before moving them into a one-on-one private chat with a sales representative. Please note, the sales representative experience is out of scope for this post.
 
 ## Application Process Flow
